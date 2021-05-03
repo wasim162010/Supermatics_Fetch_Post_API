@@ -271,7 +271,7 @@ node FetchPostDetails.js --build --test-args "ju16a6m81mhid5ue1z3v2g0uh" "wasimb
 node FetchPostDetails.js --build --test-args "ju16a6m81mhid5ue1z3v2g0uh" "wasimbari162@gmail.com" "wasim" 2 10
 node FetchPostDetails.js --build --test-args "ju16a6m81mhid5ue1z3v2g0uh" "wasimbari162@gmail.com" "wasim" 3 10
 
-You can view screenshots document too.
+You can view 'Output.pdf' document too.
 
 */
 function executeFunctionality() {

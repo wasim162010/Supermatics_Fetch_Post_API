@@ -13,100 +13,14 @@ var MonthlhyLongestPost = {}  as  any
 
 var TokenObject = {}
 
-// TokenObject={ client_id: 'ju16a6m81mhid5ue1z3v2g0uh',
-// email: 'wasimbari162@gmail.com',
-// sl_token: 'smslt_2ac8cb274524_3a6ec7dee0a6' }
 
-let countPerUserPerMonth = new Object(); 
+//let countPerUserPerMonth = new Object(); 
 
-function hello(person) {
-    
-
-    var propertiesObject = { client_id: 'ju16a6m81mhid5ue1z3v2g0uh', email: 'wasimbari162@gmail.com', name: 'wasim' };
-
-    //fetchData(2,"smslt_07875cc7a37477_e292daf5db23");
-    return "Hello, " + person;
-}
- 
-
-function fetchData(page, token) {
-    
-    request.get({
-        url:     'https://api.supermetrics.com/assignment/posts?sl_token='+token+"&page="+page,
-      }, function(error, response, body){
-      
-            var obj = JSON.parse(body);
-    
-            for (let prop in obj) {
-               // console.log("prop "+ prop );
-                for (let vals in obj[prop]) {
-                  
-                   // console.log("vals " + vals);
-                    
-                    if (vals == "posts") {
-                      //  console.log("vals " + vals);
-                        //console.log("record " + obj["data"][vals]);
-                        var arr = obj["data"][vals];
-
-                        arr.forEach(function (item, index) {
-                            //console.log(item["message"]);
-                          //  let curLen = item["message"]
-                            FetchCurrentWeekNumber(item["created_time"]);
-                    
-                        });   
-                    }
-                }    
-            }
-    });
-    
-}
+var sl_token;
+var email;
+var name;
 
 
-
-
-
-
-function TotalPostPerWeek(pageNumber,weeknumber) { //Total posts split by week number
-    var PostsPerWeek = {} //Total posts split by week number
-    //week number 
-    //total posts
-}
-
-
-function fetchPostsByPage(token, pageNumber) {
-    /*
-    {
-        "meta": {
-            "request_id": "7Z_SE9EpwSBKI4uapQkXSlcWvO_700SS"
-        },
-        "error": {
-            "message": "Invalid SL Token"
-        }
-    }
-   */
-    
-    console.log("fetchPostsByPage")
-    console.log('https://api.supermetrics.com/assignment/posts?sl_token='+token+"&page="+pageNumber)
-    request.get({
-        url:     'https://api.supermetrics.com/assignment/posts?sl_token='+token+"&page="+pageNumber
-      }, function(error, response, body){
-            var obj = JSON.parse(body);
-            console.log(obj)
-            return obj;
-            // for (let prop in obj) {
-                
-            //     for (let vals in obj[prop]) {
-            //         if (vals == "posts") {
-            //             var arr = obj["data"][vals];
-            //             arr.forEach(function (item, index) {
-            //                // FetchCurrentWeekNumber(item["created_time"]);
-            //             });   
-            //         }
-            //     }    
-            // }
-
-    });
-}
 
 function GenerateToken(cid, emailid, clientName) {
     
@@ -135,51 +49,31 @@ function GenerateToken(cid, emailid, clientName) {
     });
 }
 
-function FetchCurrentWeekNumber(curDate) {
-   // console.log("FetchCurrentWeekNumber")
-    //define a date object variable with date inside it  
-    var date1 = new Date(curDate);  
-
-    //find the year of the entered date  
-     var oneJan =  new Date(date1.getFullYear(), 0, 1);   
-  
-     // calculating number of days in given year before the given date   
-     var numberOfDays =  Math.floor((Number(date1) - Number(oneJan)) / (24 * 60 * 60 * 1000));   
-  
-     // adding 1 since to current date and returns value starting from 0   
-     var result = Math.ceil(( date1.getDay() + 1 + numberOfDays) / 7);  
-     return result
-    //console.log(" week number " + result);
-  
-
-}
 
 
-var token = "smslt_25969541f56408_63056d33edd8"  //"smslt_9d414122b0bb40_8f15a3edfab8"
+
+//var token = "smslt_25969541f56408_63056d33edd8"  //"smslt_9d414122b0bb40_8f15a3edfab8"
 
 // const fetchAllPosts = async (pageNo): Promise<typeof MonthlhyLongestPost> => {
 
 // }
 
-const fetchAllPosts = async (pageNo): Promise<typeof MonthlhyLongestPost> => {
-    let token ='smslt_47c56b5c6b6a94_5e9cb957304631'
-    const api = 'https://api.supermetrics.com/assignment/posts?sl_token='+token+'&page='+pageNo
-    try {
-        const response = await fetch(api)
-        const { data } = await response.json()
-        return data
-    } catch (error) {
-        if (error) {
-            return error.message
-        }
-    }
-}
-//
-// fetchAllPosts(5).then(function (result) {
-//     console.log(result);
-// })
+// const fetchAllPosts = async (pageNo): Promise<typeof MonthlhyLongestPost> => {
+//     console.log("fetchAllPosts")
+//     let token ='smslt_47c56b5c6b6a94_5e9cb957304631'
+//     const api = 'https://api.supermetrics.com/assignment/posts?sl_token='+token+'&page='+pageNo
+//     try {
+//         const response = await fetch(api)
+//         const { data } = await response.json()
+//         return data
+//     } catch (error) {
+//         if (error) {
+//             return error.message
+//         }
+//     }
+// }
 
-const fetchToken= async (cid,emailid,clientName): Promise<typeof MonthlhyLongestPost> => {
+const fetchToken = async (cid, emailid, clientName) => {
     var propertiesObject = { client_id: cid, email: emailid, name: clientName };
     const response = await fetch("https://api.supermetrics.com/assignment/register", {
         method: 'POST',
@@ -192,78 +86,55 @@ const fetchToken= async (cid,emailid,clientName): Promise<typeof MonthlhyLongest
     const { data } = await response.json()
 
 
+    TokenObject = data
     return data
 }
-// fetchToken("ju16a6m81mhid5ue1z3v2g0uh", "wasimbari162@gmail.com", "wasim").then(function (res) {
-//     console.log(res);
-//     TokenObject = res;
-//     console.log("Token object is " + TokenObject)
+//fetchToken("ju16a6m81mhid5ue1z3v2g0uh", "wasimbari162@gmail.com","wasim")
 
-//     for (let key in TokenObject)
-//         console.log("val is  " + TokenObject[key])
-
-// })
- 
-// console.log(fetchAllPosts(5).then(function (value) {
-//     return value;
-// })
-// )
-
-// function InitializeToken() {
+const fetchAllPosts = async (pageNo) => {
+  //  console.log("fetchAllPosts")
+    //let token = 'smslt_8bf7dfcfce7_0cd2b89685f3'
+    let api;
+  //  console.log(JSON.parse(JSON.stringify(TokenObject)))
+    try {
+        // TokenObject = await fetchToken("ju16a6m81mhid5ue1z3v2g0uh", "wasimbari162@gmail.com", "wasim")
+        TokenObject = await fetchToken(sl_token, email,name)
+       // console.log(JSON.parse(JSON.stringify(TokenObject)))
+        //console.log("TokenObject[sl_token] " + TokenObject["sl_token"])
+        api = 'https://api.supermetrics.com/assignment/posts?sl_token=' + TokenObject["sl_token"] + '&page=' + pageNo
+       // console.log(api)
+        const response = await fetch(api)
+        const { data } = await response.json()
+        return data
+    } catch (error) {
+        if (error) {
+            return error.message
+        }
+    } 
    
-//     fetchToken("ju16a6m81mhid5ue1z3v2g0uh", "wasimbari162@gmail.com", "wasim").then(function (res) {
-//         console.log(res);
-//         TokenObject = res;
-//         console.log("Token object is " + TokenObject)
+}
 
-//      })
+//fetchAllPosts(2).then(function (results) {}).catch((err) => { console.error(err) });
+
+// const fetchToken= async (cid,emailid,clientName): Promise<typeof MonthlhyLongestPost> => {
+//     var propertiesObject = { client_id: cid, email: emailid, name: clientName };
+//     const response = await fetch("https://api.supermetrics.com/assignment/register", {
+//         method: 'POST',
+//         headers: {
+//             'Accept': 'application/json',
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(propertiesObject)
+//     })
+//     const { data } = await response.json()
+
+
+//     return data
 // }
 
-// InitializeToken();
+const LongestPostPerMonth = async () => { //Working. Longest post by character length per month. Take this
 
-function AveragePostLenPerMonth(pageNo) {  //Working . Average character length of posts per month
-    console.log("AveragePostLenPerMonth")
-    var obj;
-    var countByMonth = {}
-    
-    fetchAllPosts(pageNo).then(function (result) {
-        MonthlhyLongestPost={}
-        obj = result
-      // console.log(obj)
-            for (let posts in obj) {
-                    var arr = obj["posts"];
-                  //  console.log(arr)
-                    arr.forEach(function (item, index) {
-                        var d = new Date(item["created_time"])
-                        var curMonth = d.getMonth()
-                        if (curMonth in countByMonth) {
-                            countByMonth[curMonth] = countByMonth[curMonth] + 1  
-                        } else {
-                            countByMonth[curMonth]= 1
-                        }
-                        if (curMonth in MonthlhyLongestPost) {
-                            MonthlhyLongestPost[curMonth] = MonthlhyLongestPost[curMonth] + item["message"].length
-                        } else {
-                            countByMonth[curMonth] = countByMonth[curMonth] + 1  
-                            MonthlhyLongestPost[curMonth] = 0
-                            MonthlhyLongestPost[curMonth] = item["message"].length
-                        }
-                        
-                    });//arr.foreach
-        }//vals
-        for (let key in countByMonth) {
-            MonthlhyLongestPost[key]= MonthlhyLongestPost[key]/ countByMonth[key]
-        }
-     console.log(countByMonth)
-     console.log(MonthlhyLongestPost)
-        
-    });
-}
-//AveragePostLenPerMonth(5); //fine
-
-const LPPM = async () => { //Working. Longest post by character length per month. Take this
-
-    console.log("LPPM")
+    console.log("Longest post by character length per month ")
     var obj;
     var countByMonth = {}
    var postPerMonth = {}
@@ -298,10 +169,11 @@ const LPPM = async () => { //Working. Longest post by character length per month
    
 
 }
+//LongestPostPerMonth().then(function (results) {}).catch((err) => { console.error(err) });
 //LPPM().then(function (results) {}).catch((err) => { console.error(err) });
 
-const TPPW = async () => { ////Working. Total posts split by week number. Take this
-    console.log("TotalPostsPerWeek")
+const TotalPostsPerWeek = async () => { ////Working. Total posts split by week number. Take this
+    console.log("Total posts split by week number")
     var obj;
     var totalPostsPerWeek = {}
     var curWeek = 0
@@ -313,7 +185,6 @@ const TPPW = async () => { ////Working. Total posts split by week number. Take t
         arr.forEach(function (item, index) {
             var d = new Date(item["created_time"])
             curWeek = FetchCurrentWeekNumber(d)
-           // console.log("curweek is"+ curWeek)
             if (curWeek in totalPostsPerWeek) {
                 totalPostsPerWeek[curWeek]  = totalPostsPerWeek[curWeek] + 1  
             } else {
@@ -322,14 +193,14 @@ const TPPW = async () => { ////Working. Total posts split by week number. Take t
         });//arr for each
             
     }//i loop
-   // console.log(JSON.parse(JSON.stringify(totalPostsPerWeek)))
+    console.log(JSON.parse(JSON.stringify(totalPostsPerWeek)))
     return JSON.parse(JSON.stringify(totalPostsPerWeek)) 
     
 }
-//TPPW().then(function (results) {}).catch((err) => { console.error(err) });
+//TotalPostsPerWeek().then(function (results) {}).catch((err) => { console.error(err) });
  
-const APPUPW = async () => {////Working. Total posts split by week number. Take this
-    console.log("APPUPW")
+const AvgPostPerUserPerWeek = async () => {////Working.Average number of posts per user per month. Take this
+    console.log("Average number of posts per user per month")
     var postPerMonth = {}
     var postsPerUserPerMonth = {}
     let postsPerPage;
@@ -362,10 +233,11 @@ const APPUPW = async () => {////Working. Total posts split by week number. Take 
     console.log(JSON.parse(JSON.stringify(postsPerUserPerMonth)))
     return JSON.parse(JSON.stringify(postsPerUserPerMonth)) 
 }
+//AvgPostPerUserPerWeek().then(function (results) { }).catch((err) => { console.error(err) });
 //APPUPW().then(function (results) { }).catch((err) => { console.error(err) });
 
-const APLPM = async () => { //Working . Average character length of posts per month. Take this
-    console.log("APLPM")
+const AvgPostLenPerMonth = async () => { //Working . Average character length of posts per month. Take this
+    console.log("Average character length of posts per month")
     var countByMonth = {}
 
     for (var i = 1; i <= 10; i++) {
@@ -389,160 +261,74 @@ const APLPM = async () => { //Working . Average character length of posts per mo
     return JSON.parse(JSON.stringify(countByMonth)) 
 
 }
-APLPM().then(function (results) {}).catch((err) => { console.error(err) });
+//AvgPostLenPerMonth().then(function (results) {}).catch((err) => { console.error(err) });
 
 
-function LongestPostPerMonth() { //Working. Longest post by character length per month
-    
-     console.log("LongestPostPerMonth")
-     var obj;
-     var countByMonth = {}
-    var postPerMonth = {}
-    var results;
-    for (var i = 1; i <= 10; i++) {
-        console.log("i value is " + i)
-        results = fetchAllPosts(i).then(function (result) {
-            console.log("page is " + i)
-             obj = result
-            // console.log(obj)
-                for (let posts in obj) {
-                        var arr = obj["posts"];
-                      // console.log(arr)
-                        arr.forEach(function (item, index) {
-                            var d = new Date(item["created_time"])
-                            var curMonth = d.getMonth()
-                            if (curMonth in countByMonth) {
-                                if (item["message"].length >= countByMonth[curMonth]) {
-                                    countByMonth[curMonth] = item["message"].length
-                                    postPerMonth[curMonth]= item
-                                }
-                                  /// console.log(item["message"].length  +  " " + countByMonth[curMonth]  +  " month is " + curMonth + " page is "+ i)
-                            } else {
-                                countByMonth[curMonth] = item["message"].length
-                               //console.log(item["message"].length + " " + countByMonth[curMonth] + " month is " + curMonth+ " page is "+ i)
-                                postPerMonth[curMonth]= item
-                            }
-                            
-                        });//arr.foreach
-            }//posts        
-         //console.log(countByMonth)
-        // console.log(JSON.parse(JSON.stringify(postPerMonth)))
-         //return JSON.parse(JSON.stringify(postPerMonth)) 
-        });
-    }
-    console.log("done with it")
+function FetchCurrentWeekNumber(curDate) {
 
-    for (let key in postPerMonth) {
-        console.log(postPerMonth[key])
-    }
-  //  console.log(JSON.parse(JSON.stringify(postPerMonth[5])))
-    
+    //define a date object variable with date inside it  
+    var date1 = new Date(curDate);  
 
-}
-//LongestPostPerMonth() //fine
-
-function TotalPostsPerWeek(pageNo) {//Working.  Total posts split by week number
-    console.log("TotalPostsPerWeek")
-     var obj;
-    var totalPostsPerWeek = {}
-    var curWeek=0
-    fetchAllPosts(pageNo).then(function (result) {
-        obj = result
-        for (let posts in obj) {
-            var arr = obj["posts"];
-            arr.forEach(function (item, index) {
-                var d = new Date(item["created_time"])
-                curWeek = FetchCurrentWeekNumber(d)
-                if (curWeek in totalPostsPerWeek) {
-                    totalPostsPerWeek[curWeek]  = totalPostsPerWeek[curWeek] + 1  
-                } else {
-                    totalPostsPerWeek[curWeek] = 1
-                }
-                
-            });
-        }
-        console.log(JSON.parse(JSON.stringify(totalPostsPerWeek)))
-        return JSON.parse(JSON.stringify(totalPostsPerWeek)) 
-    });//then
-}
-//TotalPostsPerWeek(7); //fine
+    //find the year of the entered date  
+     var oneJan =  new Date(date1.getFullYear(), 0, 1);   
   
-function AvgPostPerUserPerMonth(pageNo) { //Working. Average number of posts per user per month
-    
-    console.log("AvgPostPerUserPerMonth")
-    var obj;
-    var countByMonth = {}
-    var postPerMonth = {}
-    var avgPosts = {}
-    var postsPerMonth = {}
-    let curMonth = 0
-    fetchAllPosts(pageNo).then(function (result) {
-       obj = result
+     // calculating number of days in given year before the given date   
+     var numberOfDays =  Math.floor((Number(date1) - Number(oneJan)) / (24 * 60 * 60 * 1000));   
+  
+     // adding 1 since to current date and returns value starting from 0   
+     var result = Math.ceil(( date1.getDay() + 1 + numberOfDays) / 7);  
+     return result
+    //console.log(" week number " + result);
+  
 
-           for (let posts in obj) {
-                   var arr = obj["posts"];
+}
+
+function executeFunctionality() {
+    var params = process.argv.slice(4)
+    console.log(params)
+    sl_token = params[0]
+    email = params[1]
+    name = params[2]
+    var option = params[3]
+
+    console.log(sl_token, email, name, option)
+    
+    //Valid 'option' values :
+    //LongestPostPerMonth   option 1
+    //TotalPostsPerWeek     option 2
+    //AvgPostPerUserPerWeek option 3
+    //AvgPostLenPerMonth    option 4
+
+    switch(Number(option)) { 
+        case 1: { 
            
-                   arr.forEach(function (item, index) {
-                       var curUser = item["from_id"]
-                
-                       var d = new Date(item["created_time"])
-                       var curMonth = d.getMonth()
-                    
-                       if (curUser in avgPosts) {
-                            if (curMonth in postsPerMonth[curUser][curMonth] ) {
-                                postsPerMonth[curUser][curMonth] = postsPerMonth[curUser][curMonth] + 1 
-                            } else {
-                                postsPerMonth[curUser][curMonth] =  1 
-                            }       
-                       } else {
-                            postPerMonth[curMonth] = 1
-                           postsPerMonth[curUser]= postPerMonth
-                       }
-                       
-                   });//arr.foreach
-       }//posts        
-   // console.log(postsPerMonth)
-    console.log(JSON.parse(JSON.stringify(postsPerMonth)))
-    return JSON.parse(JSON.stringify(postsPerMonth)) 
-   });
-
+           LongestPostPerMonth();
+           break; 
+        } 
+        case 2: {
+            TotalPostsPerWeek();
+         
+            
+           break; 
+        }
+        case 3: { 
+           
+            AvgPostPerUserPerWeek();
+            break; 
+        }
+        case 4: { 
+           
+            AvgPostLenPerMonth();
+            break; 
+         }   
+        default: { 
+            console.error("Enter proper opotions. Please view the valid options mentioned above in comments or refer below statements.")
+            console.log("LongestPostPerMonth   option 1")
+            console.log("TotalPostsPerWeek     option 2")
+            console.log("AvgPostPerUserPerWeek option 3")
+            console.log("AvgPostLenPerMonth    option 4")
+           break; 
+        } 
+     } 
 }
-//AvgPostPerUserPerMonth(5) //fine
-
-/** 
- *function LongestPostPerMonth(pageNo) { //Working. Longest post by character length per month
-    
-     console.log("LongestPostPerMonth")
-     var obj;
-     var countByMonth = {}
-     var postPerMonth={}
-     fetchAllPosts(pageNo).then(function (result) {
-        obj = result
-       // console.log(obj)
-            for (let posts in obj) {
-                    var arr = obj["posts"];
-                  //  console.log(arr)
-                    arr.forEach(function (item, index) {
-                        var d = new Date(item["created_time"])
-                        var curMonth = d.getMonth()
-                        if (curMonth in countByMonth) {
-                            if (item["message"].length >= countByMonth[curMonth]) {
-                                countByMonth[curMonth] = item["message"].length
-                                postPerMonth[curMonth]= item
-                            }
-                                console.log(item["message"].length  +  " " + countByMonth[curMonth]  +  " month is " + curMonth)
-                        } else {
-                            countByMonth[curMonth] = item["message"].length
-                            console.log(item["message"].length + " " + countByMonth[curMonth] + " month is " + curMonth)
-                            postPerMonth[curMonth]= item
-                        }
-                        
-                    });//arr.foreach
-        }//posts        
-     console.log(countByMonth)
-     console.log(JSON.parse(JSON.stringify(postPerMonth)))
-     return JSON.parse(JSON.stringify(postPerMonth)) 
-    });
-
-}
- */
+executeFunctionality()

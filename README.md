@@ -2,9 +2,9 @@
 
 
 
-You need to pass command line parameters while calling 'executeFunctionality()', pls see the example and order of params
+#You need to pass command line parameters while calling 'executeFunctionality()', pls see the example and order of params
 
-node FetchPostDetails.js --build --test-args <sl_token> <email> <name> <option> <maxPagesToRead>
+#node FetchPostDetails.js --build --test-args <sl_token> <email> <name> <option> <maxPagesToRead>
 
 See the below example :
 #node FetchPostDetails.js --build --test-args "ju16a6m81mhid5ue1z3v2g0uh" "wasimbari162@gmail.com" "wasim" 4 10

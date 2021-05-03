@@ -36,58 +36,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-// import * as request from 'request'
-// var request = require('request');
 var request = require('request');
 var fetch = require("node-fetch");
-var MonthlhyLongestPost = {};
 var TokenObject = {};
-//let countPerUserPerMonth = new Object(); 
 var sl_token;
 var email;
 var name;
-function GenerateToken(cid, emailid, clientName) {
-    var propertiesObject = { client_id: cid, email: emailid, name: clientName };
-    request.post({
-        url: 'https://api.supermetrics.com/assignment/register',
-        form: propertiesObject
-    }, function (error, response, body) {
-        console.log(body);
-        var resp = body;
-        var obj = JSON.parse(body);
-        console.log(response.statusCode);
-        if (response.statusCode == 400) {
-            if (obj.error.code == "PARAM_REQUIRED") {
-                console.log("PARAM_REQUIRED");
-                return obj.error.description;
-            }
-            else if (obj.error.message == "INVALID_CLIENT_ID") {
-                console.log("INVALID_CLIENT_ID");
-                return obj.error.message;
-            }
-        }
-        else {
-            return obj;
-        }
-    });
-}
-//var token = "smslt_25969541f56408_63056d33edd8"  //"smslt_9d414122b0bb40_8f15a3edfab8"
-// const fetchAllPosts = async (pageNo): Promise<typeof MonthlhyLongestPost> => {
-// }
-// const fetchAllPosts = async (pageNo): Promise<typeof MonthlhyLongestPost> => {
-//     console.log("fetchAllPosts")
-//     let token ='smslt_47c56b5c6b6a94_5e9cb957304631'
-//     const api = 'https://api.supermetrics.com/assignment/posts?sl_token='+token+'&page='+pageNo
-//     try {
-//         const response = await fetch(api)
-//         const { data } = await response.json()
-//         return data
-//     } catch (error) {
-//         if (error) {
-//             return error.message
-//         }
-//     }
-// }
 var fetchToken = function (cid, emailid, clientName) { return __awaiter(void 0, void 0, void 0, function () {
     var propertiesObject, response, data;
     return __generator(this, function (_a) {
@@ -119,15 +73,9 @@ var fetchAllPosts = function (pageNo) { return __awaiter(void 0, void 0, void 0,
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 4, , 5]);
-                return [4 /*yield*/, fetchToken(sl_token, email, name)
-                    // console.log(JSON.parse(JSON.stringify(TokenObject)))
-                    //console.log("TokenObject[sl_token] " + TokenObject["sl_token"])
-                ];
+                return [4 /*yield*/, fetchToken(sl_token, email, name)];
             case 1:
-                // TokenObject = await fetchToken("ju16a6m81mhid5ue1z3v2g0uh", "wasimbari162@gmail.com", "wasim")
                 TokenObject = _a.sent();
-                // console.log(JSON.parse(JSON.stringify(TokenObject)))
-                //console.log("TokenObject[sl_token] " + TokenObject["sl_token"])
                 api = 'https://api.supermetrics.com/assignment/posts?sl_token=' + TokenObject["sl_token"] + '&page=' + pageNo;
                 return [4 /*yield*/, fetch(api)];
             case 2:
@@ -146,21 +94,7 @@ var fetchAllPosts = function (pageNo) { return __awaiter(void 0, void 0, void 0,
         }
     });
 }); };
-//fetchAllPosts(2).then(function (results) {}).catch((err) => { console.error(err) });
-// const fetchToken= async (cid,emailid,clientName): Promise<typeof MonthlhyLongestPost> => {
-//     var propertiesObject = { client_id: cid, email: emailid, name: clientName };
-//     const response = await fetch("https://api.supermetrics.com/assignment/register", {
-//         method: 'POST',
-//         headers: {
-//             'Accept': 'application/json',
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify(propertiesObject)
-//     })
-//     const { data } = await response.json()
-//     return data
-// }
-var LongestPostPerMonth = function () { return __awaiter(void 0, void 0, void 0, function () {
+var LongestPostPerMonth = function (maxPagesToRead) { return __awaiter(void 0, void 0, void 0, function () {
     var obj, countByMonth, postPerMonth, results, i, arr;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -171,7 +105,7 @@ var LongestPostPerMonth = function () { return __awaiter(void 0, void 0, void 0,
                 i = 1;
                 _a.label = 1;
             case 1:
-                if (!(i <= 10)) return [3 /*break*/, 4];
+                if (!(i <= maxPagesToRead)) return [3 /*break*/, 4];
                 return [4 /*yield*/, fetchAllPosts(i)];
             case 2:
                 results = _a.sent();
@@ -196,24 +130,24 @@ var LongestPostPerMonth = function () { return __awaiter(void 0, void 0, void 0,
                 return [3 /*break*/, 1];
             case 4:
                 console.log(JSON.parse(JSON.stringify(postPerMonth)));
-                return [2 /*return*/];
+                return [2 /*return*/, JSON.parse(JSON.stringify(postPerMonth))];
         }
     });
 }); };
 //LongestPostPerMonth().then(function (results) {}).catch((err) => { console.error(err) });
 //LPPM().then(function (results) {}).catch((err) => { console.error(err) });
-var TotalPostsPerWeek = function () { return __awaiter(void 0, void 0, void 0, function () {
+var TotalPostsPerWeek = function (maxPagesToRead) { return __awaiter(void 0, void 0, void 0, function () {
     var obj, totalPostsPerWeek, curWeek, results, i, arr;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log("TotalPostsPerWeek");
+                console.log("Total posts split by week number");
                 totalPostsPerWeek = {};
                 curWeek = 0;
                 i = 1;
                 _a.label = 1;
             case 1:
-                if (!(i <= 10)) return [3 /*break*/, 4];
+                if (!(i <= maxPagesToRead)) return [3 /*break*/, 4];
                 return [4 /*yield*/, fetchAllPosts(i)];
             case 2:
                 results = _a.sent();
@@ -239,18 +173,18 @@ var TotalPostsPerWeek = function () { return __awaiter(void 0, void 0, void 0, f
     });
 }); };
 //TotalPostsPerWeek().then(function (results) {}).catch((err) => { console.error(err) });
-var AvgPostPerUserPerWeek = function () { return __awaiter(void 0, void 0, void 0, function () {
+var AvgPostPerUserPerWeek = function (maxPagesToRead) { return __awaiter(void 0, void 0, void 0, function () {
     var postPerMonth, postsPerUserPerMonth, postsPerPage, i, posts;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log("APPUPW");
+                console.log("Average number of posts per user per month");
                 postPerMonth = {};
                 postsPerUserPerMonth = {};
                 i = 1;
                 _a.label = 1;
             case 1:
-                if (!(i <= 10)) return [3 /*break*/, 4];
+                if (!(i <= maxPagesToRead)) return [3 /*break*/, 4];
                 return [4 /*yield*/, fetchAllPosts(i)];
             case 2:
                 postsPerPage = _a.sent();
@@ -285,18 +219,17 @@ var AvgPostPerUserPerWeek = function () { return __awaiter(void 0, void 0, void 
     });
 }); };
 //AvgPostPerUserPerWeek().then(function (results) { }).catch((err) => { console.error(err) });
-//APPUPW().then(function (results) { }).catch((err) => { console.error(err) });
-var AvgPostLenPerMonth = function () { return __awaiter(void 0, void 0, void 0, function () {
+var AvgPostLenPerMonth = function (maxPagesToRead) { return __awaiter(void 0, void 0, void 0, function () {
     var countByMonth, i, postsPerPage, posts;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log("AvgPostLenPerMonth");
+                console.log("Average character length of posts per month");
                 countByMonth = {};
                 i = 1;
                 _a.label = 1;
             case 1:
-                if (!(i <= 10)) return [3 /*break*/, 4];
+                if (!(i <= maxPagesToRead)) return [3 /*break*/, 4];
                 return [4 /*yield*/, fetchAllPosts(i)];
             case 2:
                 postsPerPage = _a.sent();
@@ -332,7 +265,6 @@ function FetchCurrentWeekNumber(curDate) {
     // adding 1 since to current date and returns value starting from 0   
     var result = Math.ceil((date1.getDay() + 1 + numberOfDays) / 7);
     return result;
-    //console.log(" week number " + result);
 }
 function executeFunctionality() {
     var params = process.argv.slice(4);
@@ -341,6 +273,7 @@ function executeFunctionality() {
     email = params[1];
     name = params[2];
     var option = params[3];
+    var maxPagesToRead = params[4];
     console.log(sl_token, email, name, option);
     //Valid 'option' values :
     //LongestPostPerMonth   option 1
@@ -349,19 +282,19 @@ function executeFunctionality() {
     //AvgPostLenPerMonth    option 4
     switch (Number(option)) {
         case 1: {
-            LongestPostPerMonth();
+            LongestPostPerMonth(maxPagesToRead);
             break;
         }
         case 2: {
-            TotalPostsPerWeek();
+            TotalPostsPerWeek(maxPagesToRead);
             break;
         }
         case 3: {
-            AvgPostPerUserPerWeek();
+            AvgPostPerUserPerWeek(maxPagesToRead);
             break;
         }
         case 4: {
-            AvgPostLenPerMonth();
+            AvgPostLenPerMonth(maxPagesToRead);
             break;
         }
         default: {

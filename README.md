@@ -4,6 +4,7 @@
 
 #You need to pass command line parameters while calling 'executeFunctionality()', pls see the example and order of params
 
+#node FetchPostDetails.js --build --test-args sl_token email name option maxPagesToRead
 
 See the below example :
 

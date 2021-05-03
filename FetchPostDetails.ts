@@ -26,7 +26,7 @@ const fetchToken = async (cid, emailid, clientName) => {
     TokenObject = data
     return data
 }
-//fetchToken("ju16a6m81mhid5ue1z3v2g0uh", "wasimbari162@gmail.com","wasim")
+
 
 const fetchAllPosts = async (pageNo) => {
     let api;
@@ -75,22 +75,18 @@ const LongestPostPerMonth = async (maxPagesToRead) => { //Working. Longest post 
                                            countByMonth[curMonth] = item["message"].length
                                     
                                            postPerMonth[curMonth]= item
-                } //if-else end
-           });//foreach of arr
-        
-     //  } //obj
-    
-   }//i loop
+                } 
+           });     
+   } 
 
     console.log(JSON.parse(JSON.stringify(postPerMonth)))
     return JSON.parse(JSON.stringify(postPerMonth))
    
 
 }
-//LongestPostPerMonth().then(function (results) {}).catch((err) => { console.error(err) });
-//LPPM().then(function (results) {}).catch((err) => { console.error(err) });
 
-const TotalPostsPerWeek = async (maxPagesToRead) => { ////Working. Total posts split by week number. Take this
+
+const TotalPostsPerWeek = async (maxPagesToRead) => { 
     console.log("Total posts split by week number")
     var obj;
     var totalPostsPerWeek = {}
@@ -112,16 +108,16 @@ const TotalPostsPerWeek = async (maxPagesToRead) => { ////Working. Total posts s
             } else {
                 totalPostsPerWeek[curWeek] = 1
             }
-        });//arr for each
+        }); 
             
-    }//i loop
+    } 
     console.log(JSON.parse(JSON.stringify(totalPostsPerWeek)))
     return JSON.parse(JSON.stringify(totalPostsPerWeek)) 
     
 }
-//TotalPostsPerWeek().then(function (results) {}).catch((err) => { console.error(err) });
+
  
-const AvgPostPerUserPerWeek = async (maxPagesToRead) => {////Working.Average number of posts per user per month. Take this
+const AvgPostPerUserPerWeek = async (maxPagesToRead) => {
     console.log("Average number of posts per user per month")
     var postPerMonth = {}
     var postsPerUserPerMonth = {}
@@ -153,16 +149,16 @@ const AvgPostPerUserPerWeek = async (maxPagesToRead) => {////Working.Average num
                 postsPerUserPerMonth[curUser]= postPerMonth
            }
 
-        });//postsPerPage
+        }); 
 
-    } // for i
+    } 
     console.log(JSON.parse(JSON.stringify(postsPerUserPerMonth)))
     return JSON.parse(JSON.stringify(postsPerUserPerMonth)) 
 }
-//AvgPostPerUserPerWeek().then(function (results) { }).catch((err) => { console.error(err) });
 
 
-const AvgPostLenPerMonth = async (maxPagesToRead) => { //Working . Average character length of posts per month. Take this
+
+const AvgPostLenPerMonth = async (maxPagesToRead) => { 
     console.log("Average character length of posts per month")
     var countByMonth = {}
 
@@ -191,7 +187,7 @@ const AvgPostLenPerMonth = async (maxPagesToRead) => { //Working . Average chara
     return JSON.parse(JSON.stringify(countByMonth)) 
 
 }
-//AvgPostLenPerMonth().then(function (results) {}).catch((err) => { console.error(err) });
+
 
 
 function FetchCurrentWeekNumber(curDate) {
@@ -210,6 +206,20 @@ function FetchCurrentWeekNumber(curDate) {
      return result
 }
 
+/*
+You need to pass command line parameters while calling 'executeFunctionality()', pls see the example and order of params
+
+node FetchPostDetails.js --build --test-args <sl_token> <email> <name> <option> <maxPagesToRead>
+
+See the below example :
+node FetchPostDetails.js --build --test-args "ju16a6m81mhid5ue1z3v2g0uh" "wasimbari162@gmail.com" "wasim" 4 10
+node FetchPostDetails.js --build --test-args "ju16a6m81mhid5ue1z3v2g0uh" "wasimbari162@gmail.com" "wasim" 1 10
+node FetchPostDetails.js --build --test-args "ju16a6m81mhid5ue1z3v2g0uh" "wasimbari162@gmail.com" "wasim" 2 10
+node FetchPostDetails.js --build --test-args "ju16a6m81mhid5ue1z3v2g0uh" "wasimbari162@gmail.com" "wasim" 3 10
+
+You can view screenshots document too.
+
+*/
 function executeFunctionality() {
     var params = process.argv.slice(4)
     console.log(params)
@@ -219,7 +229,8 @@ function executeFunctionality() {
     var option = params[3]
     var maxPagesToRead = params[4]
 
-    console.log(sl_token, email, name, option)
+
+    //console.log(sl_token, email, name, option)
     
     //Valid 'option' values :
     //LongestPostPerMonth   option 1

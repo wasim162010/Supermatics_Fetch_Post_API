@@ -66,7 +66,6 @@ var fetchToken = function (cid, emailid, clientName) { return __awaiter(void 0, 
         }
     });
 }); };
-//fetchToken("ju16a6m81mhid5ue1z3v2g0uh", "wasimbari162@gmail.com","wasim")
 var fetchAllPosts = function (pageNo) { return __awaiter(void 0, void 0, void 0, function () {
     var api, response, data, error_1;
     return __generator(this, function (_a) {
@@ -122,8 +121,8 @@ var LongestPostPerMonth = function (maxPagesToRead) { return __awaiter(void 0, v
                     else {
                         countByMonth[curMonth] = item["message"].length;
                         postPerMonth[curMonth] = item;
-                    } //if-else end
-                }); //foreach of arr
+                    }
+                });
                 _a.label = 3;
             case 3:
                 i++;
@@ -134,8 +133,6 @@ var LongestPostPerMonth = function (maxPagesToRead) { return __awaiter(void 0, v
         }
     });
 }); };
-//LongestPostPerMonth().then(function (results) {}).catch((err) => { console.error(err) });
-//LPPM().then(function (results) {}).catch((err) => { console.error(err) });
 var TotalPostsPerWeek = function (maxPagesToRead) { return __awaiter(void 0, void 0, void 0, function () {
     var obj, totalPostsPerWeek, curWeek, results, i, arr;
     return __generator(this, function (_a) {
@@ -161,7 +158,7 @@ var TotalPostsPerWeek = function (maxPagesToRead) { return __awaiter(void 0, voi
                     else {
                         totalPostsPerWeek[curWeek] = 1;
                     }
-                }); //arr for each
+                });
                 _a.label = 3;
             case 3:
                 i++;
@@ -172,7 +169,6 @@ var TotalPostsPerWeek = function (maxPagesToRead) { return __awaiter(void 0, voi
         }
     });
 }); };
-//TotalPostsPerWeek().then(function (results) {}).catch((err) => { console.error(err) });
 var AvgPostPerUserPerWeek = function (maxPagesToRead) { return __awaiter(void 0, void 0, void 0, function () {
     var postPerMonth, postsPerUserPerMonth, postsPerPage, i, posts;
     return __generator(this, function (_a) {
@@ -207,7 +203,7 @@ var AvgPostPerUserPerWeek = function (maxPagesToRead) { return __awaiter(void 0,
                         postPerMonth[curMonth] = 1;
                         postsPerUserPerMonth[curUser] = postPerMonth;
                     }
-                }); //postsPerPage
+                });
                 _a.label = 3;
             case 3:
                 i++;
@@ -218,7 +214,6 @@ var AvgPostPerUserPerWeek = function (maxPagesToRead) { return __awaiter(void 0,
         }
     });
 }); };
-//AvgPostPerUserPerWeek().then(function (results) { }).catch((err) => { console.error(err) });
 var AvgPostLenPerMonth = function (maxPagesToRead) { return __awaiter(void 0, void 0, void 0, function () {
     var countByMonth, i, postsPerPage, posts;
     return __generator(this, function (_a) {
@@ -254,7 +249,6 @@ var AvgPostLenPerMonth = function (maxPagesToRead) { return __awaiter(void 0, vo
         }
     });
 }); };
-//AvgPostLenPerMonth().then(function (results) {}).catch((err) => { console.error(err) });
 function FetchCurrentWeekNumber(curDate) {
     //define a date object variable with date inside it  
     var date1 = new Date(curDate);

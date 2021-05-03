@@ -94,7 +94,7 @@ var fetchAllPosts = function (pageNo) { return __awaiter(void 0, void 0, void 0,
     });
 }); };
 var LongestPostPerMonth = function (maxPagesToRead) { return __awaiter(void 0, void 0, void 0, function () {
-    var obj, countByMonth, postPerMonth, results, i, arr;
+    var countByMonth, postPerMonth, results, i, arr;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -260,6 +260,20 @@ function FetchCurrentWeekNumber(curDate) {
     var result = Math.ceil((date1.getDay() + 1 + numberOfDays) / 7);
     return result;
 }
+/*
+You need to pass command line parameters while calling 'executeFunctionality()', pls see the example and order of params
+
+node FetchPostDetails.js --build --test-args <sl_token> <email> <name> <option> <maxPagesToRead>
+
+See the below example :
+node FetchPostDetails.js --build --test-args "ju16a6m81mhid5ue1z3v2g0uh" "wasimbari162@gmail.com" "wasim" 4 10
+node FetchPostDetails.js --build --test-args "ju16a6m81mhid5ue1z3v2g0uh" "wasimbari162@gmail.com" "wasim" 1 10
+node FetchPostDetails.js --build --test-args "ju16a6m81mhid5ue1z3v2g0uh" "wasimbari162@gmail.com" "wasim" 2 10
+node FetchPostDetails.js --build --test-args "ju16a6m81mhid5ue1z3v2g0uh" "wasimbari162@gmail.com" "wasim" 3 10
+
+You can view screenshots document too.
+
+*/
 function executeFunctionality() {
     var params = process.argv.slice(4);
     console.log(params);
@@ -268,7 +282,7 @@ function executeFunctionality() {
     name = params[2];
     var option = params[3];
     var maxPagesToRead = params[4];
-    console.log(sl_token, email, name, option);
+    //console.log(sl_token, email, name, option)
     //Valid 'option' values :
     //LongestPostPerMonth   option 1
     //TotalPostsPerWeek     option 2

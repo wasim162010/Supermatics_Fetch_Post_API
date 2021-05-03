@@ -47,9 +47,8 @@ const fetchAllPosts = async (pageNo) => {
 const LongestPostPerMonth = async (maxPagesToRead) => { //Working. Longest post by character length per month. Take this
 
     console.log("Longest post by character length per month ")
-    var obj;
     var countByMonth = {}
-   var postPerMonth = {}
+    var postPerMonth = {}
     var results;
 
      /*

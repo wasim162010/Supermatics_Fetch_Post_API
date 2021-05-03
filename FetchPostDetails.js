@@ -98,7 +98,7 @@ var LongestPostPerMonth = function (maxPagesToRead) { return __awaiter(void 0, v
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log("Longest post by character length per month ");
+                console.log("Longest post by character length per month.Processing data.. ");
                 countByMonth = {};
                 postPerMonth = {};
                 i = 1;
@@ -138,7 +138,7 @@ var TotalPostsPerWeek = function (maxPagesToRead) { return __awaiter(void 0, voi
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log("Total posts split by week number");
+                console.log("Total posts split by week number.Processing data.. ");
                 totalPostsPerWeek = {};
                 curWeek = 0;
                 i = 1;
@@ -174,7 +174,7 @@ var AvgPostPerUserPerWeek = function (maxPagesToRead) { return __awaiter(void 0,
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log("Average number of posts per user per month");
+                console.log("Average number of posts per user per month.Processing data.. ");
                 postPerMonth = {};
                 postsPerUserPerMonth = {};
                 i = 1;
@@ -219,7 +219,7 @@ var AvgPostLenPerMonth = function (maxPagesToRead) { return __awaiter(void 0, vo
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log("Average character length of posts per month");
+                console.log("Average character length of posts per month.Processing data.. ");
                 countByMonth = {};
                 i = 1;
                 _a.label = 1;

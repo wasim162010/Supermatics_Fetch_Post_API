@@ -46,7 +46,7 @@ const fetchAllPosts = async (pageNo) => {
 
 const LongestPostPerMonth = async (maxPagesToRead) => { //Working. Longest post by character length per month. Take this
 
-    console.log("Longest post by character length per month ")
+    console.log("Longest post by character length per month.Processing data.. ")
     var countByMonth = {}
     var postPerMonth = {}
     var results;
@@ -86,7 +86,7 @@ const LongestPostPerMonth = async (maxPagesToRead) => { //Working. Longest post 
 
 
 const TotalPostsPerWeek = async (maxPagesToRead) => { 
-    console.log("Total posts split by week number")
+    console.log("Total posts split by week number.Processing data.. ")
     var obj;
     var totalPostsPerWeek = {}
     var curWeek = 0
@@ -117,7 +117,7 @@ const TotalPostsPerWeek = async (maxPagesToRead) => {
 
  
 const AvgPostPerUserPerWeek = async (maxPagesToRead) => {
-    console.log("Average number of posts per user per month")
+    console.log("Average number of posts per user per month.Processing data.. ")
     var postPerMonth = {}
     var postsPerUserPerMonth = {}
     let postsPerPage;
@@ -158,7 +158,7 @@ const AvgPostPerUserPerWeek = async (maxPagesToRead) => {
 
 
 const AvgPostLenPerMonth = async (maxPagesToRead) => { 
-    console.log("Average character length of posts per month")
+    console.log("Average character length of posts per month.Processing data.. ")
     var countByMonth = {}
 
     /*
